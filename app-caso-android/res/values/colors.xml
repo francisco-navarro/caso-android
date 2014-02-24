@@ -1,5 +1,14 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    <color name="gris_claro">#e8e8e8</color>
+    <color name="fondo_item">#C5BDD9</color>
+    <color name="gris_oscuro">#878787</color>
+    <color name="blanco">#ffffff</color>
+    <color name="negro">#000000</color>
+    <color name="otronegro">#3A3952</color>
+    <color name="amarillo_header">#f9d119</color>
+
+    
 
 </resources>

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">app-caso-android</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="app_name">Book List</string>
+    <string name="menu_order_date">Ordenar por fecha</string>
+    <string name="menu_order_name">Ordenar por nombre</string>
+    
+     <string name="title_name">Nombre</string>
+      <string name="title_date">Fecha</string>
+    
 
 </resources>
