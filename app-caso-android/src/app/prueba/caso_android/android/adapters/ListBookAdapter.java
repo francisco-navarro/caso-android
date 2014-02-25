@@ -18,15 +18,13 @@ public class ListBookAdapter extends BaseAdapter{
 	private Context appContext;
 
 
-	public ListBookAdapter (final Context appContext, final List<BookItem> plist)
-	{
+	public ListBookAdapter (final Context appContext, final List<BookItem> plist) {
 		super();
 		this.bookList = plist;
 		this.appContext = appContext;
 	}
 	
-	public ListBookAdapter (final Context appContext, final String[] plist)
-	{
+	public ListBookAdapter (final Context appContext, final String[] plist) {
 		super();
 		this.bookList = new ArrayList<BookItem>();
 		
@@ -36,6 +34,8 @@ public class ListBookAdapter extends BaseAdapter{
 		
 		this.appContext = appContext;
 	}
+	
+	
 
 	public List<BookItem> getPlist() {
 		return bookList;
@@ -84,10 +84,10 @@ public class ListBookAdapter extends BaseAdapter{
 		
 		BookItem book = bookList.get(indx);
 				
-		nombre.setText(book.getNombre());
+		nombre.setText(book.getNombreShort());
 		fecha.setText(book.getFecha());
 
-		//TODO: coger y ver el tamaño
+		
 
 		return view;
 	}

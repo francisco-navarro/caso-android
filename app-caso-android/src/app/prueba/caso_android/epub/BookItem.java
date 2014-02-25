@@ -1,6 +1,10 @@
 package app.prueba.caso_android.epub;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import app.prueba.caso_android.util.Constants;
 
 public class BookItem implements Serializable{
 	
@@ -8,21 +12,27 @@ public class BookItem implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 3373047714186518163L;
-	private String id;
+	
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATE_FORMAT);
+	
 	private String nombre;
 	private String fecha;
 	
+	
 	public BookItem(String nombre){
 		this.nombre=nombre;
-	}
+	}	
 	
-	
-	public String getId() {
-		return id;
+	public BookItem(String nombre, String fecha) {
+		this.nombre = nombre;
+		this.fecha = fecha;
 	}
-	public void setId(String id) {
-		this.id = id;
+
+	public BookItem(String name, Date modifiedTime) {
+		this.nombre = name;
+		this.fecha = dateFormat.format(modifiedTime);
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -35,7 +45,16 @@ public class BookItem implements Serializable{
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
+
+	public String getNombreShort() {
+		if(nombre.length()>Constants.MAX_TITLE_LENGHT)
+			return nombre.substring(0,Constants.MAX_TITLE_LENGHT-2)+"...";
+		
+		return nombre;
 	
+	}
+
+
 	
 	
 

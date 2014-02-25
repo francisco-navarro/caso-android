@@ -1,6 +1,8 @@
 package app.prueba.caso_android.android;
 
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -16,13 +18,17 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 import app.prueba.caso_android.R;
 import app.prueba.caso_android.android.adapters.ListBookAdapter;
+import app.prueba.caso_android.dropbox.DBoxConnectionFactory;
 import app.prueba.caso_android.dropbox.TestDBox;
+import app.prueba.caso_android.epub.BookItem;
 
 
 
 public class ListBookActivity extends Activity {
 	
 	private ListView listaLibros;
+	//La declaramos estatica para que solo la inicialice una vez
+	private static List<BookItem> libros;
 	
 	private  int posicionClick=-1;
 
@@ -34,6 +40,15 @@ public class ListBookActivity extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_booklist);
+
+		try{
+			//Recogemos de dropbox la lista de libros
+			libros= DBoxConnectionFactory.getConnection().getListaBooks();
+		} catch (Exception e) {			
+			e.printStackTrace();
+			Toast.makeText(getApplicationContext(), "No se pueden cargar la lista de libros", Toast.LENGTH_SHORT).show();
+		}
+
 		
 		//Obtenemos el objeto list view de la actividad
 		listaLibros = (ListView) findViewById(R.id.listViewBooks);
@@ -45,19 +60,22 @@ public class ListBookActivity extends Activity {
 	
 	
 	private void mostrarDatosLista() {
-		
+
+
+
 		//Le ponemos una cabecera al list view
 		View header = getLayoutInflater().inflate(R.layout.list_view_header,
 				null);
 		listaLibros.addHeaderView(header, null, false);
-		
+
 		//Inicializamos el adaptador para el list view
 		listaLibros
-				.setAdapter(new ListBookAdapter(this, TestDBox.librosTest));
+		.setAdapter(new ListBookAdapter(this,libros));
 		listaLibros.getSelectedItemPosition();
 		listaLibros.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		
+
 		listaLibros.setOnItemClickListener(new BookClickListener() );
+
 
 	}
 
@@ -100,5 +118,30 @@ public class ListBookActivity extends Activity {
 		}		
 		
 	}	
+	
+	
+	public void onBackPressed() {
+		
+		//Sobreescribimos el boton volver para que al pulsarlo salga un mensaje de si desea salir de la app
+		 new AlertDialog.Builder(this)
+         .setMessage("¿Desea salir de la aplicacion?")
+         .setCancelable(false)
+         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+             public void onClick(DialogInterface dialog, int id) {
+            	salir();
+             }
+         })
+         .setNegativeButton("No", null)
+         .show();
+	}
+
+
+	protected void salir() {
+		finish();
+		System.exit(0);
+	}
+	
+	
+	
 	
 }

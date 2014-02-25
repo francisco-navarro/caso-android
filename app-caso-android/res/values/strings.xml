@@ -5,6 +5,8 @@
     <string name="menu_order_date">Ordenar por fecha</string>
     <string name="menu_order_name">Ordenar por nombre</string>
     
+     <string name="connecting">Conectando con la cuenta...</string>
+     
      <string name="title_name">Nombre</string>
       <string name="title_date">Fecha  </string>
     

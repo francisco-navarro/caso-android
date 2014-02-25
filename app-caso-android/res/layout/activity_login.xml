@@ -11,10 +11,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="40sp"
         android:layout_marginRight="40sp"
         android:layout_marginTop="5sp"
-        android:layout_weight="3"        
+        android:layout_weight="3"
         android:gravity="bottom"
         android:orientation="vertical" >
 
@@ -24,14 +25,21 @@
             android:layout_height="wrap_content"
             android:src="@drawable/book" />
 
-        <EditText
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/connecting"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/gris_oscuro" />
+
+   <!--<EditText
             android:id="@+id/login_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="Usuario"
             android:inputType="text" >
-
             <requestFocus />
         </EditText>
 
@@ -43,50 +51,59 @@
             android:gravity="center"      
             android:hint="Password"     
             android:inputType="textPassword" />
+            -->
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+            
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40sp"
-        android:layout_marginRight="40sp"
-        android:layout_marginTop="30sp"
-        android:layout_weight="0.5"
-        android:gravity="top|center"
-        android:orientation="horizontal" >
+<!--     <LinearLayout -->
+<!--         android:layout_width="fill_parent" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_marginLeft="40sp" -->
+<!--         android:layout_marginRight="40sp" -->
+<!--         android:layout_marginTop="30sp" -->
+<!--         android:layout_weight="0.5" -->
+<!--         android:gravity="top|center" -->
+<!--         android:orientation="horizontal" > -->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="top|left"
-            android:orientation="vertical" >
+<!--         <LinearLayout -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="match_parent" -->
+<!--             android:gravity="top|left" -->
+<!--             android:orientation="vertical" > -->
 
-            <Button
-                android:id="@+id/cancel_login"
-                android:layout_width="120sp"
-                android:layout_height="wrap_content"               
-                android:gravity="center"
-                android:onClick="doCancelar"                                
-                android:text="CANCELAR" />
-        </LinearLayout>
+<!--             <Button -->
+<!--                 android:id="@+id/cancel_login" -->
+<!--                 android:layout_width="120sp" -->
+<!--                 android:layout_height="wrap_content"                -->
+<!--                 android:gravity="center" -->
+<!--                 android:onClick="doCancelar"                                 -->
+<!--                 android:text="CANCELAR" /> -->
+<!--         </LinearLayout> -->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="top|right"
-            android:orientation="vertical" >
+<!--         <LinearLayout -->
+<!--             android:layout_width="wrap_content" -->
+<!--             android:layout_height="match_parent" -->
+<!--             android:layout_weight="1" -->
+<!--             android:gravity="top|right" -->
+<!--             android:orientation="vertical" > -->
 
-            <Button
-                android:id="@+id/login"
-                android:layout_width="120sp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50sp"                       
-                android:gravity="center"
-                android:onClick="doEntrar"
-                android:text="ACEPTAR" />
-        </LinearLayout>
-    </LinearLayout>
+<!--             <Button -->
+<!--                 android:id="@+id/login" -->
+<!--                 android:layout_width="120sp" -->
+<!--                 android:layout_height="wrap_content" -->
+<!--                 android:layout_marginLeft="50sp"                        -->
+<!--                 android:gravity="center" -->
+<!--                 android:onClick="doEntrar" -->
+<!--                 android:text="ACEPTAR" /> -->
+<!--         </LinearLayout> -->
+<!--     </LinearLayout> -->
 
 
 </LinearLayout>
