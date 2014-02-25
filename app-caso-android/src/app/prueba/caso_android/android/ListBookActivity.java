@@ -26,7 +26,7 @@ public class ListBookActivity extends Activity {
 	
 	private  int posicionClick=-1;
 
-	private long DELAY=0,INTERVAL=200;
+	private long DELAY=0,INTERVAL=400;
 	
 	
 	@Override

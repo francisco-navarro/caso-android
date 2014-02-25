@@ -10,7 +10,7 @@
                  android:layout_height="match_parent"
                  android:choiceMode="singleChoice"
                  android:divider="@color/blanco"
-                 android:dividerHeight="3sp"
+                 android:dividerHeight="1dp"
                  android:drawSelectorOnTop="false"    
                  android:layout_marginBottom="10sp" >
      </ListView>
