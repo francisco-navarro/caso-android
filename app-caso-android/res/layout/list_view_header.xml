@@ -40,8 +40,9 @@
         </LinearLayout>
         
          <LinearLayout
-             android:layout_width="fill_parent"
-             android:layout_height="50sp"
+             android:layout_width="match_parent"
+             android:layout_height="fill_parent"
+             android:layout_marginRight="10sp"
              android:orientation="vertical" >
 
                 <TextView
@@ -49,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
-                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp"
                     android:gravity="center"
                     android:text="@string/title_date" />
 
