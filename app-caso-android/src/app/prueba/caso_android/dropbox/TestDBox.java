@@ -2,6 +2,7 @@ package app.prueba.caso_android.dropbox;
 
 import java.util.List;
 
+import android.graphics.Bitmap;
 import app.prueba.caso_android.epub.BookItem;
 
 public class TestDBox implements IDBoxConnection{
@@ -12,6 +13,12 @@ public class TestDBox implements IDBoxConnection{
 	public List<BookItem> getListaBooks() {
 		
 		
+		return null;
+	}
+
+	@Override
+	public Bitmap getCaratulaFromFile(String filename) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

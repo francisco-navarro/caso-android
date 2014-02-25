@@ -14,11 +14,15 @@ import app.prueba.caso_android.dropbox.IDBoxConnection;
 
 public class LoginActivity extends Activity {
 	
+	private TextView textoLogin;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		
+		textoLogin=(TextView) findViewById(R.id.textLogin);
 		
 		//Iniciamos una conexion de la aplicación con el factory a dropbox
 		new doLoginAsyncTask(this).execute();
@@ -31,9 +35,9 @@ public class LoginActivity extends Activity {
 	//Clase que usamos para lanzar en segundo plano la conexion con dropbox
 	private class doLoginAsyncTask extends AsyncTask<String, Void, Void> {
 		
-		private Activity activity;
+		private LoginActivity activity;
 		
-		private doLoginAsyncTask(Activity activity){
+		private doLoginAsyncTask(LoginActivity activity){
 			this.activity=activity;
 		}
 
@@ -46,10 +50,11 @@ public class LoginActivity extends Activity {
 			
 			IDBoxConnection conn=DBoxConnectionFactory.initConnection(activity,null,null);	
 			try {
+				
 				conn.getListaBooks();
 			} catch (Exception e) {
 				//Mostrar el error que no se ha podido cargar el listado de libros
-				
+				e.printStackTrace();
 			}
 			return null;
 		}
@@ -62,5 +67,7 @@ public class LoginActivity extends Activity {
 			startActivity(mIntent);
 		}
 	}
+
+
 	
 }

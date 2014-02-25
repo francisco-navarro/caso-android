@@ -1,5 +1,6 @@
 package app.prueba.caso_android.dropbox;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,12 +8,15 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import app.prueba.caso_android.epub.BookItem;
+import app.prueba.caso_android.epub.ReaderEpubs;
 import app.prueba.caso_android.epub.util.EpubFilter;
 
 import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxException;
 import com.dropbox.sync.android.DbxException.Unauthorized;
+import com.dropbox.sync.android.DbxFile;
 import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
@@ -28,6 +32,7 @@ public class DBoxConnection implements IDBoxConnection {
 	private DbxFileSystem dbxFs;
 	
 	private HashMap<String,DbxFileInfo> listadoEpub;
+	private ArrayList<BookItem> listado;
 	
 	DBoxConnection (Activity activity,String APP_KEY, String APP_SECRET) throws Unauthorized{
 		
@@ -59,17 +64,31 @@ public class DBoxConnection implements IDBoxConnection {
 			DbxPath raiz= new DbxPath("/");
 			//Una vez recorridos los guarda en un hashmap por nombre del fichero como keys
 			recorrerDirectorio(raiz);
+			
+		}else{
+			return listado;
 		}
 		
 		
-		ArrayList<BookItem> listado=new ArrayList<BookItem>();
+		listado=new ArrayList<BookItem>();
 		
 		for(String name: listadoEpub.keySet()){
+			//Cojo del hashmap la informacion del fichero
+			DbxFileInfo fileInfo = listadoEpub.get(name);
+			//Abro el fichero de dropbox
+			DbxFile  file = dbxFs.open(fileInfo.path) ;
+			//Leemos el fichero con la clase del reader de epubs
+			BookItem libro = ReaderEpubs.leerLibro(file.getReadStream());			
+			//Si el nombre del epub esta vacio, ponemos el del fichero
+			if(libro.getNombre()==null)
+				libro.setNombre(fileInfo.path.getName());
+			libro.setFilename(fileInfo.path.getName());
+			//Cerramos el objeto del fichero
+			file.close();
+			libro.setRuta(fileInfo.path);
+			libro.setFecha(fileInfo.modifiedTime);
+			listado.add(libro);
 			
-			DbxFileInfo file = listadoEpub.get(name);
-			listado.add(
-					new BookItem(file.path.getName(), 
-							file.modifiedTime));
 		}		
 		
 		return listado;
@@ -78,7 +97,6 @@ public class DBoxConnection implements IDBoxConnection {
 
 	//Funcion recursiva donde sacamos un listado de todos los directorios que hay en dropbox y lo devolvemos en una lista
 	private void recorrerDirectorio(DbxPath dir) throws InvalidPathException, DbxException {
-		
 		
 		for(DbxFileInfo file :  dbxFs.listFolder(dir)){
 			
@@ -90,6 +108,28 @@ public class DBoxConnection implements IDBoxConnection {
 				listadoEpub.put(file.path.getName(), file);
 			}
 		}
+		
+	}
+	
+	public Bitmap getCaratulaFromFile(String filename){
+		
+		Bitmap caratula=null;
+		
+		//Cojo del hashmap la informacion del fichero
+		DbxFileInfo fileInfo = listadoEpub.get(filename);
+		if(fileInfo!=null){
+			//Abro el fichero de dropbox
+			try {
+				DbxFile  file = dbxFs.open(fileInfo.path) ;
+				caratula=ReaderEpubs.leerCaratula(file.getReadStream());
+				file.close();
+			} catch (Exception e) {				
+				e.printStackTrace();
+			}
+
+		}
+		
+		return caratula;
 		
 	}
 	

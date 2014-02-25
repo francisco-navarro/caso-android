@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.dropbox.sync.android.DbxPath;
+
 import app.prueba.caso_android.util.Constants;
 
 public class BookItem implements Serializable{
@@ -17,6 +19,8 @@ public class BookItem implements Serializable{
 	
 	private String nombre;
 	private String fecha;
+	private String filename;
+	private DbxPath ruta;
 	
 	
 	public BookItem(String nombre){
@@ -54,7 +58,27 @@ public class BookItem implements Serializable{
 	
 	}
 
+	public DbxPath getRuta() {
+		return ruta;
+	}
 
+	public void setRuta(DbxPath ruta) {
+		this.ruta = ruta;
+	}
+
+	public void setFecha(Date modifiedTime) {
+		this.fecha = dateFormat.format(modifiedTime);
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	
 	
 	
 

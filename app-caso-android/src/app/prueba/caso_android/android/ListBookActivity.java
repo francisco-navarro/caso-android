@@ -21,6 +21,7 @@ import app.prueba.caso_android.android.adapters.ListBookAdapter;
 import app.prueba.caso_android.dropbox.DBoxConnectionFactory;
 import app.prueba.caso_android.dropbox.TestDBox;
 import app.prueba.caso_android.epub.BookItem;
+import app.prueba.caso_android.util.Constants;
 
 
 
@@ -108,7 +109,9 @@ public class ListBookActivity extends Activity {
 				
 				Intent mIntent = new Intent(getApplicationContext(),
 						BookDetailActivity.class);
-				mIntent.putExtra("idPosicion", posicionClick);
+				
+				
+				mIntent.putExtra(Constants.PARAM_FILENAME, libros.get(posicionClick).getFilename());
 				startActivity(mIntent);
 				
 				
