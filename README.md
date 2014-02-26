@@ -17,7 +17,7 @@ En este gráfico se muestra de manera sencilla la navegación que realizará la 
 ##Diseño técnico
 Para implementar la aplicación se ha dividido el desarrollo en los siquientes puntos. De esta manera trabajaremos programando la lógica de cada elemento por separado y de forma ordenada integrándola con las actividades de la aplicación.
 
-
+![Screenshot](http://imageshack.com/a/img839/7565/2je9.png)
 
 ###Actividades android
 Las pantallas para las actividades android están en este paquete:
