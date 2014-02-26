@@ -1,6 +1,7 @@
 package app.prueba.caso_android.android;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,7 +31,7 @@ public class ListBookActivity extends Activity {
 	
 	private ListView listaLibros;
 	//La declaramos estatica para que solo la inicialice una vez
-	private static List<BookItem> libros;
+	private static ArrayList<BookItem> libros;
 	
 	private  int posicionClick=-1;
 
@@ -75,6 +77,7 @@ public class ListBookActivity extends Activity {
 		listaLibros.getSelectedItemPosition();
 		listaLibros.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
+		//Le añadimos los listener de los clicks
 		listaLibros.setOnItemClickListener(new BookClickListener() );
 
 
@@ -87,7 +90,32 @@ public class ListBookActivity extends Activity {
 		return true;
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.menu_settings_name:
+	            ordenarLibros(Constants.ORDER_BY_NAME);
+	            return true;
+	        case R.id.menu_settings_date:
+	        	 ordenarLibros(Constants.ORDER_BY_DATE);
+	            return true;	            
+	    }
+	    return super.onOptionsItemSelected(item);
+	}
 	
+	
+	private void ordenarLibros(int orderBy) {
+		
+		libros=BookItem.ordernarlista(libros, orderBy);
+		listaLibros
+			.setAdapter(new ListBookAdapter(this,libros));
+		listaLibros.invalidateViews();
+		
+		
+	}
+
+
 	private class BookClickListener implements OnItemClickListener{		
 		
 
@@ -96,24 +124,22 @@ public class ListBookActivity extends Activity {
 				final View view, final int position, final long ident) {
 			view.setSelected(true);
 
-			int prevClick=posicionClick;
+			int prevClick=posicionClick;			
+			posicionClick = position - 1;// Sacamos la posicion teneiendo en cuenta el header	
 			
-			posicionClick = position - 1;// Teneiendo en cuenta el header	
 			
-			
+			//Si ha hecho click en la ultima posicion y hace menos del intervalo, consideramos doble click
 			if(prevClick==posicionClick 
 					&& System.currentTimeMillis()-DELAY<INTERVAL){
 				
-				DELAY=0;
-				
+				DELAY=0;				
 				
 				Intent mIntent = new Intent(getApplicationContext(),
-						BookDetailActivity.class);
+						BookDetailActivity.class);				
 				
-				
+				//Le pasamos al intent de la nueva actividad el fichero del epub
 				mIntent.putExtra(Constants.PARAM_FILENAME, libros.get(posicionClick).getFilename());
-				startActivity(mIntent);
-				
+				startActivity(mIntent);				
 				
 			}else{
 				DELAY=System.currentTimeMillis();
@@ -121,6 +147,8 @@ public class ListBookActivity extends Activity {
 		}		
 		
 	}	
+	
+	
 	
 	
 	public void onBackPressed() {

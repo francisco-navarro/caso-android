@@ -1,13 +1,10 @@
 package app.prueba.caso_android.dropbox;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import app.prueba.caso_android.epub.BookItem;
 import app.prueba.caso_android.epub.ReaderEpubs;
@@ -24,28 +21,30 @@ import com.dropbox.sync.android.DbxPath.InvalidPathException;
 
 public class DBoxConnection implements IDBoxConnection {
 	
+	static public int countStatus=0;
 	
 	static final int REQUEST_LINK_TO_DBX = 0;
 
-	//Objeto necesario para conectar la cuenta
+	//Objetos necesarios para conectar la cuenta
 	private DbxAccountManager mAccountManager;
 	private DbxFileSystem dbxFs;
 	
+	//Lista con todos los libros
+	private ArrayList<BookItem> listado;	
+	
+	//HashMap con el nombre del fichero y la info del fichero para luego acceder a la caratula
 	private HashMap<String,DbxFileInfo> listadoEpub;
-	private ArrayList<BookItem> listado;
 	
 	DBoxConnection (Activity activity,String APP_KEY, String APP_SECRET) throws Unauthorized{
 		
 		 mAccountManager = DbxAccountManager.getInstance(activity.getApplicationContext(), APP_KEY, APP_SECRET);
-		 
 		
 		 //Comprobamos si tiene una cuenta ya enlazada
 		 if (mAccountManager.hasLinkedAccount()) {
 			 //Ya hay cuenta enlazada, no hacemos nada
 		 }else{
 			 //Si no hay cuenta inicializamos el flujo
-			 mAccountManager.startLink(activity, REQUEST_LINK_TO_DBX);
-			 
+			 mAccountManager.startLink(activity, REQUEST_LINK_TO_DBX);			 
 		 }
 		 
 		 //Asignamos el objeto filesysetm que usaremos para esta cuenta dropbox
@@ -54,8 +53,11 @@ public class DBoxConnection implements IDBoxConnection {
 	
 	
 
+	/* (non-Javadoc)
+	 * @see app.prueba.caso_android.dropbox.IDBoxConnection#getListaBooks()
+	 */
 	@Override
-	public List<BookItem> getListaBooks() throws Exception {
+	public ArrayList<BookItem> getListaBooks() throws Exception {
 		
 		//Si no se ha inicializado, el listado se recorren los directorios en busca de epub
 		if(listadoEpub==null){
@@ -73,6 +75,7 @@ public class DBoxConnection implements IDBoxConnection {
 		listado=new ArrayList<BookItem>();
 		
 		for(String name: listadoEpub.keySet()){
+			countStatus++;
 			//Cojo del hashmap la informacion del fichero
 			DbxFileInfo fileInfo = listadoEpub.get(name);
 			//Abro el fichero de dropbox
@@ -95,7 +98,14 @@ public class DBoxConnection implements IDBoxConnection {
 	}
 
 
-	//Funcion recursiva donde sacamos un listado de todos los directorios que hay en dropbox y lo devolvemos en una lista
+	
+	/**
+	 *  Metodo recursivo donde sacamos un listado de todos los directorios que hay en dropbox y los acumulamos en listadoEpub
+	 * 
+	 * @param dir - Objeto con el path del directorio
+	 * @throws InvalidPathException
+	 * @throws DbxException
+	 */
 	private void recorrerDirectorio(DbxPath dir) throws InvalidPathException, DbxException {
 		
 		for(DbxFileInfo file :  dbxFs.listFolder(dir)){
@@ -111,6 +121,10 @@ public class DBoxConnection implements IDBoxConnection {
 		
 	}
 	
+	/** 
+	 * Metodo que nos devuelve 
+	 * @param filename - nombre del fichero del libro epub
+	 */
 	public Bitmap getCaratulaFromFile(String filename){
 		
 		Bitmap caratula=null;
@@ -132,6 +146,9 @@ public class DBoxConnection implements IDBoxConnection {
 		return caratula;
 		
 	}
+
+
+
 	
 	
 }

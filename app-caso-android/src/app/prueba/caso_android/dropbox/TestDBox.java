@@ -1,5 +1,6 @@
 package app.prueba.caso_android.dropbox;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
@@ -10,15 +11,15 @@ public class TestDBox implements IDBoxConnection{
 	public static String[] librosTest={"libro1", "libro2","libro3"};
 
 	@Override
-	public List<BookItem> getListaBooks() {
+	public ArrayList<BookItem> getListaBooks() {
 		
 		
-		return null;
+		return new ArrayList<BookItem>();
 	}
 
 	@Override
 	public Bitmap getCaratulaFromFile(String filename) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

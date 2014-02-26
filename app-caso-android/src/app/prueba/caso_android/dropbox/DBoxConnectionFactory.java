@@ -11,10 +11,17 @@ public class DBoxConnectionFactory {
 	
 	private static IDBoxConnection conn=null;
 	
-	//Metodo en el que llamamos a la interfaz de dropbox
+	
+	/**
+	 * Metodo en el que llamamos a la interfaz de dropbox y la inicializamos
+	 * Para probar en test mode devolvemos un objeto TestDBox
+	 * @param applicationContext
+	 * @param login
+	 * @param pwd
+	 * @return
+	 */
 	public static IDBoxConnection initConnection (Activity applicationContext,String login, String pwd){
 		
-		//Cuando estamos en test mode devolvemos un objeto TestDBox
 		//Podemos implementar la aplicacion con otro interfaz que no sea dropbox si implementa IDBoxConnection
 		//return new TestDBox();
 		try{

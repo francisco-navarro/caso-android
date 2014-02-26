@@ -37,8 +37,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     public static final class id {
         public static final int imageCover=0x7f080001;
         public static final int listViewBooks=0x7f080000;
-        public static final int menu_settings1=0x7f080006;
-        public static final int menu_settings2=0x7f080007;
+        public static final int menu_settings_date=0x7f080007;
+        public static final int menu_settings_name=0x7f080006;
         public static final int progressBar1=0x7f080003;
         public static final int textLogin=0x7f080002;
         public static final int textViewFecha=0x7f080005;
