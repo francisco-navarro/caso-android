@@ -14,6 +14,7 @@ En este gráfico se muestra de manera sencilla la navegación que realizará la 
 
 
 
+![Screenshot](http://imageshack.com/a/img32/5858/qdf2.png)
 
 ##Diseño técnico
 
